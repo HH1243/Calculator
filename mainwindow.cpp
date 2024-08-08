@@ -32,6 +32,10 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Backspace, SIGNAL(released()), this, SLOT(clearPressed()));
     connect(ui->Reset, SIGNAL(released()), this, SLOT(clearPressed()));
 
+    // Connect square root and square buttons to unaryOperationsPressed slot
+    connect(ui->SquareRoot, SIGNAL(released()), this, SLOT(unaryOperationPressed()));
+    connect(ui->Square, SIGNAL(released()), this, SLOT(unaryOperationPressed()));
+
 }
 
 MainWindow::~MainWindow()
@@ -139,8 +143,31 @@ void MainWindow::clearPressed()
     else if ((buttonValue == "<-") && (answerAquired == false))
     {
         QString DisplayValue = ui->Display->text();
-        QString newValue = DisplayValue.removeLast();
-        ui->Display->setText(newValue);
+        ui->Display->setText(DisplayValue.removeLast());
 
     }
 }
+
+void MainWindow::unaryOperationPressed()
+{
+    QPushButton *button = (QPushButton*)sender();
+    QString buttonValue = button->text();
+
+
+    if (errorFlag == false)
+    {
+        if (buttonValue == "√")
+        {
+            double operand = ui->Display->text().toDouble();
+            ui->Display->setText(QString::number(sqrt(operand)));
+        }
+
+        if (buttonValue == "x²")
+        {
+            double operand = ui->Display->text().toDouble();
+            ui->Display->setText(QString::number(operand*operand));
+        }
+    }
+
+}
+

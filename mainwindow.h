@@ -20,6 +20,7 @@ public:
 private slots:
     void digitPressed();
     void operationPressed();
+    void unaryOperationPressed();
     void equalsPressed();
     void clearPressed();
 
