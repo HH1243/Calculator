@@ -26,9 +26,14 @@ private slots:
 private:
     Ui::MainWindow *ui;
 
-    // Member variables to store operands and operator
+    // Member variables to store operands, operator and flags
     double leftOperand;
     double rightOperand;
+
     QString pendingOperator;
+
+    bool errorFlag;
+    bool operationInProcess;
+    bool answerAquired;
 };
 #endif // MAINWINDOW_H

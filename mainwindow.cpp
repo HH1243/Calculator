@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->Equals, SIGNAL(released()), this, SLOT(equalsPressed()));
 
     // Connect clear buttons to clearPressed slot
-    connect(ui->Clear, SIGNAL(released()), this, SLOT(clearPressed()));
+    connect(ui->Backspace, SIGNAL(released()), this, SLOT(clearPressed()));
     connect(ui->Reset, SIGNAL(released()), this, SLOT(clearPressed()));
 
 }
@@ -46,15 +46,21 @@ void MainWindow::digitPressed()
     QString buttonValue = button->text();
     QString displayValue = ui->Display->text();
 
-    if ((displayValue == "0") || (displayValue == "0.0"))
+    operationInProcess = true;
+
+    if ((displayValue == "0") || (displayValue == "0.0") || (answerAquired == true))
     {
         ui->Display->setText(buttonValue);
+        answerAquired = false;
     }
     else
     {
         QString newValue = displayValue + buttonValue;
         ui->Display->setText(newValue);
     }
+
+
+
 }
 
 void MainWindow::operationPressed()
@@ -62,10 +68,15 @@ void MainWindow::operationPressed()
 
     QPushButton *button = (QPushButton*)sender();
     QString buttonValue = button->text();
-
-    leftOperand = ui->Display->text().toDouble();
     pendingOperator = buttonValue;
-    ui->Display->clear();
+
+    if (operationInProcess == true)
+    {
+        leftOperand = ui->Display->text().toDouble();
+        ui->Display->clear();
+
+        operationInProcess = false;
+    }
 
 
 }
@@ -74,6 +85,8 @@ void MainWindow::equalsPressed()
 {
     rightOperand = ui->Display->text().toDouble();
     double result = 0.0;
+    errorFlag = false;
+    answerAquired = true;
 
     if (pendingOperator == "+")
     {
@@ -85,7 +98,7 @@ void MainWindow::equalsPressed()
         result = leftOperand * rightOperand;
     }
 
-    else if (pendingOperator == "÷")
+    else if ((pendingOperator == "÷") && (rightOperand != 0))
     {
         result = leftOperand / rightOperand;
     }
@@ -97,11 +110,12 @@ void MainWindow::equalsPressed()
 
     else
     {
-        ui->Display->setText("Error");
+        ui->Display->setText("Math Error");
+        errorFlag = true;
 
     }
 
-    if (result != 0.0)
+    if (errorFlag == false)
     {
         ui->Display->setText((QString::number(result)));
     }
@@ -122,9 +136,11 @@ void MainWindow::clearPressed()
 
     }
 
-    else if (buttonValue == "CE")
+    else if ((buttonValue == "<-") && (answerAquired == false))
     {
-        ui->Display->clear();
-        leftOperand = 0.0;
+        QString DisplayValue = ui->Display->text();
+        QString newValue = DisplayValue.removeLast();
+        ui->Display->setText(newValue);
+
     }
 }

@@ -563,7 +563,7 @@
       </size>
      </property>
     </widget>
-    <widget class="QPushButton" name="Clear">
+    <widget class="QPushButton" name="Backspace">
      <property name="geometry">
       <rect>
        <x>210</x>
@@ -583,7 +583,7 @@
       <string notr="true">background-color: rgb(255, 0, 0)</string>
      </property>
      <property name="text">
-      <string>CE</string>
+      <string>&lt;-</string>
      </property>
      <property name="iconSize">
       <size>
