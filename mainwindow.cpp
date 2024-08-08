@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     // Connect digit buttons to digitPressed slot
+    connect(ui->Decimal, SIGNAL(released()), this, SLOT(digitPressed()));
     connect(ui->NumberZero, SIGNAL(released()), this, SLOT(digitPressed()));
     connect(ui->NumberOne, SIGNAL(released()), this, SLOT(digitPressed()));
     connect(ui->NumberTwo, SIGNAL(released()), this, SLOT(digitPressed()));
@@ -155,6 +156,7 @@ void MainWindow::unaryOperationPressed()
     QPushButton *button = (QPushButton*)sender();
     QString buttonValue = button->text();
 
+    answerAquired = true;
 
     if (errorFlag == false)
     {
