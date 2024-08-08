@@ -50,6 +50,8 @@ void MainWindow::digitPressed()
     QString buttonValue = button->text();
     QString displayValue = ui->Display->text();
 
+    errorFlag = false;
+
     operationInProcess = true;
 
     if ((displayValue == "0") || (displayValue == "0.0") || (answerAquired == true))
@@ -74,7 +76,7 @@ void MainWindow::operationPressed()
     QString buttonValue = button->text();
     pendingOperator = buttonValue;
 
-    if (operationInProcess == true)
+    if ((operationInProcess == true) && (errorFlag == false))
     {
         leftOperand = ui->Display->text().toDouble();
         ui->Display->clear();
@@ -89,7 +91,7 @@ void MainWindow::equalsPressed()
 {
     rightOperand = ui->Display->text().toDouble();
     double result = 0.0;
-    errorFlag = false;
+
     answerAquired = true;
 
     if (pendingOperator == "+")
