@@ -11,8 +11,11 @@ Features:
 Description:
 
 QT creator was used to design the GUI as well as program with the IDE in c++. This was because it 
-offers a wide range of built in libaries as well as signal-slot mechanism making t ideal for GUI 
+offers a wide range of built in libaries as well as signal-slot mechanism making it ideal for GUI 
 applications.
+
+This project was made to familiarise myself with QT creator for potential future projects requiring
+GUI's,
 
 
 
