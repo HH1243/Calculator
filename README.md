@@ -4,7 +4,7 @@ Features:
 - Binary operations (addition, subtraction, multiplication and division)
 - Unary operations (square rooting and squaring values)
 - All clear function (clears all inputs and operations)
-- Backspace function (deletes least siginificant value in a number)
+- Backspace function (deletes least significant value in a number)
 - Error checking (displays math error for divide by zero errors)
 - Input decimal values
 
